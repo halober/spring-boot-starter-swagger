@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.bind.PropertiesConfigurationFactory;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +40,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class Swagger2AutoConfiguration {
 
+	private static final Logger log = LoggerFactory.getLogger(Swagger2AutoConfiguration.class);
+
 	@EnableSwagger2
 	@Profile({ "api" })
 	static class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAware {
@@ -50,7 +54,8 @@ public class Swagger2AutoConfiguration {
 		}
 
 		private Swagger2Properties getSwagger2Properties() {
-			PropertiesConfigurationFactory<Swagger2Properties> factory = new PropertiesConfigurationFactory<>(Swagger2Properties.class);
+			PropertiesConfigurationFactory<Swagger2Properties> factory = new PropertiesConfigurationFactory<>(
+					Swagger2Properties.class);
 			factory.setPropertySources(environment.getPropertySources());
 			factory.setConversionService(environment.getConversionService());
 			factory.setIgnoreInvalidFields(false);
@@ -67,15 +72,11 @@ public class Swagger2AutoConfiguration {
 
 		private Docket getSwagger2Docket(Swagger2GroupProperties swaggerConfig) {
 			return new Docket(DocumentationType.SWAGGER_2)
-					.apiInfo(new ApiInfoBuilder()
-							.title(swaggerConfig.getTitle())
-							.description(swaggerConfig.getDescription())
-							.version(swaggerConfig.getVersion())
-							.license(swaggerConfig.getLicense())
-							.licenseUrl(swaggerConfig.getLicenseUrl())
+					.apiInfo(new ApiInfoBuilder().title(swaggerConfig.getTitle())
+							.description(swaggerConfig.getDescription()).version(swaggerConfig.getVersion())
+							.license(swaggerConfig.getLicense()).licenseUrl(swaggerConfig.getLicenseUrl())
 							.termsOfServiceUrl(swaggerConfig.getTermsOfServiceUrl())
-							.contact(swaggerConfig.getContact().toContact())
-							.build())
+							.contact(swaggerConfig.getContact().toContact()).build())
 					.groupName(swaggerConfig.getGroupName()).pathMapping(swaggerConfig.getPathMapping())// 最终调用接口后会和paths拼接在一起
 					.select()
 					.apis((RequestHandler input) -> null != input.findAnnotation(GetMapping.class)
@@ -136,16 +137,16 @@ public class Swagger2AutoConfiguration {
 	}
 
 	@RestController
-	@ConditionalOnBean(Swagger2Docket.class)
+	@ConditionalOnMissingBean(Swagger2Docket.class)
 	static class PreventSwaggerResourcesController {
 		@RequestMapping("/swagger-ui.html")
 		void swaggerIndex() {
-			System.err.println("接口未开放");
+			log.info("swagger api文档未开放,不允许访问");
 		}
 
 		@RequestMapping("/webjars/springfox-swagger-ui/**")
 		void swaggerResources() {
-			System.err.println("接口未开放");
+			log.info("swagger api文档未开放,不允许访问");
 		}
 	}
 
