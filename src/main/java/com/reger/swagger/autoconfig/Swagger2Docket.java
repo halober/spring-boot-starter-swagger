@@ -58,14 +58,17 @@ public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAwar
 						.license(swaggerConfig.getLicense()).licenseUrl(swaggerConfig.getLicenseUrl())
 						.termsOfServiceUrl(swaggerConfig.getTermsOfServiceUrl())
 						.contact(swaggerConfig.getContact().toContact()).build())
-				.groupName(swaggerConfig.getGroupName()).pathMapping(swaggerConfig.getPathMapping())// 最终调用接口后会和paths拼接在一起
+				.groupName(swaggerConfig.getGroupName())
+				.pathMapping(swaggerConfig.getPathMapping())// 最终调用接口后会和paths拼接在一起
 				.select()
-				.apis((RequestHandler input) -> null != input.findAnnotation(GetMapping.class)
-						|| null != input.findAnnotation(PostMapping.class)
-						|| null != input.findAnnotation(DeleteMapping.class)
-						|| null != input.findAnnotation(PutMapping.class)
-						|| null != input.findAnnotation(RequestMapping.class))
-				.paths((String input) -> input.matches(swaggerConfig.getPathRegex())).build();
+				.apis((RequestHandler input) ->  
+							input.isAnnotatedWith(GetMapping.class)
+						|| 	input.isAnnotatedWith(PostMapping.class)
+						|| 	input.isAnnotatedWith(DeleteMapping.class)
+						|| 	input.isAnnotatedWith(PutMapping.class)
+						|| 	input.isAnnotatedWith(RequestMapping.class))
+				.paths((String input) -> input.matches(swaggerConfig.getPathRegex()))
+				.build();
 	}
 
 	private Docket getOtherSwagger2Docket(List<String> pathRegexs) {
@@ -78,11 +81,12 @@ public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAwar
 						.licenseUrl(otherSwagger.getLicense()).build())
 				.groupName(otherSwagger.getGroupName()).pathMapping(otherSwagger.getPathMapping())// 最终调用接口后会和paths拼接在一起
 				.select()
-				.apis((RequestHandler input) -> null != input.findAnnotation(GetMapping.class)
-						|| null != input.findAnnotation(PostMapping.class)
-						|| null != input.findAnnotation(DeleteMapping.class)
-						|| null != input.findAnnotation(PutMapping.class)
-						|| null != input.findAnnotation(RequestMapping.class))
+				.apis((RequestHandler input) ->   
+							input.isAnnotatedWith(GetMapping.class)
+						|| 	input.isAnnotatedWith(PostMapping.class)
+						|| 	input.isAnnotatedWith(DeleteMapping.class)
+						|| 	input.isAnnotatedWith(PutMapping.class)
+						|| 	input.isAnnotatedWith(RequestMapping.class))
 				.paths((String input) -> {
 					for (String pathRegex : pathRegexs) {
 						if (input.matches(pathRegex))
