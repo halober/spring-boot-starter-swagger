@@ -8,7 +8,7 @@
 
 2.支持api分组配置，通过正则表达式方式分组
 
-3.支持分环境配置，你可以很容易让你的项目api文档在开发环境，测试环境，预发布环境查看，而在生产环境不显示文档
+3.支持分环境配置，你可以很容易让你的项目api文档在开发环境，测试环境，预发布环境查看，而在生产环境不可查看
 
 
 ## 快速入门
@@ -42,14 +42,14 @@ spring:
 以上是swagger的配置，其中组可以配置多个，组名以数字打头，多个组可以排序
 
 #### 3.启用swagger配置
-启用swagger配置，使用spring-boot的Profile方式配置的，对应的Profile参数是api。所以该配置要分环境，只需要在对应环境的配置文件中增加profiles包含的环境参数至，在一个环境中不需要启用api只需要不包含就可以了。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
+启用swagger配置，使用spring-boot的Profile方式配置的，对应的Profile参数是api。所以该配置要分环境，只需要在对应环境的配置文件中增加profiles包含的环境参数中即可，在一个环境中不需要启用api只需要不包含就可以了。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
 ```yml
 spring:
   profiles:
     include:
       - api               # 开发环境启用api文档
 ```
-在prod环境不要启用api，只需要如下'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
+在prod环境不要启用api，只需要'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
 
 #### 4.配置java代码的文档注解
 ①. model类中增加配置注解
@@ -104,11 +104,23 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 使用方法
 
 ①. 下载文档的描述json
-下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，访问'http://127.0.0.1/v2/api-docs?group=01.user-api'即可下载。
 
-②
+下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，可以[点击这里](http://127.0.0.1/v2/api-docs?group=01.user-api)下载。
+
+② 生成客户端代码
+
+打开[swagger-editor](https://editor.swagger.io/),点击页面左上角，‘file’->importFile->选择刚才下载的json文件上传-> 点击‘Generate Client’->‘点选你要生成的客户端语言’->等一下，会自动下载生成的客户端程序包
 
 
 ## 示例项目
-
-# [示例项目](https://gitee.com/reger/spring-boot-starter-swagger-example)
+#### 1.克隆[示例代码](https://gitee.com/lei0719/spring-boot-starter-swagger-example)
+```cmd
+git clone git@gitee.com:lei0719/spring-boot-starter-swagger-example.git
+```
+#### 2.启动服务
+进入示例代码的目录执行命令
+```cmd
+mvn spring-boot:run -Dspring.profiles.active=dev  -Dserver.port=80
+```
+#### 3.查看文档
+访问地址[点击这里](http://127.0.0.1/swagger-ui.html)
