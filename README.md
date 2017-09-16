@@ -42,14 +42,14 @@ spring:
 以上是swagger的配置，其中组可以配置多个，组名以数字打头，多个组可以排序
 
 #### 3.启用swagger配置
-启用swagger配置，使用spring-boot的Profile方式配置的，对应的Profile参数是api。所以该配置要分环境，只需要在对应环境的配置文件中增加profiles包含的环境参数至，在一个环境中不需要启用api只需要不包含就可以了。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
+启用swagger配置，使用spring-boot的Profile方式配置的，对应的Profile参数是api。所以该配置要分环境，只需要在对应环境的配置文件中增加profiles包含的环境参数中即可，在一个环境中不需要启用api只需要不包含就可以了。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
 ```yml
 spring:
   profiles:
     include:
       - api               # 开发环境启用api文档
 ```
-在prod环境不要启用api，只需要如下'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
+在prod环境不要启用api，只需要'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
 
 #### 4.配置java代码的文档注解
 ①. model类中增加配置注解
