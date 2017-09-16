@@ -51,4 +51,13 @@ spring:
 ```
 在prod环境不要启用api，只需要如下'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
 
+#### 4.配置java代码的文档注解
+①. model类中增加配置
+
+②. 控制器中增加配置
+
+#### 5.查看文档
+
+## 示例项目
+
 # [示例项目](https://gitee.com/reger/spring-boot-starter-swagger-example)
