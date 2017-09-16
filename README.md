@@ -20,7 +20,7 @@
         <version>${spring-boot-starter-swagger.version}</version>
     </dependency>
 ```
-#### 2.在spring-boot项目的增加配置文件'application-api.yml',在其中配置swagger的信息，如下
+#### 2.在spring-boot项目增加配置文件'application-api.yml',在其中配置swagger的信息，如下
 ```yml
 spring:
   swagger-group:
