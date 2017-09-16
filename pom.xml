@@ -5,7 +5,7 @@
 
 	<groupId>com.gitee.reger</groupId>
 	<artifactId>spring-boot-starter-swagger</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>spring-boot-starter-swagger</name>
