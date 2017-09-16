@@ -1,3 +1,0 @@
-spring:
-  profiles:
-    include:                # 生产环境不启用api文档，只需要不包含api就可以了
