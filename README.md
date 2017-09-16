@@ -33,7 +33,7 @@ spring:
         version: 0.0.0                              # api版本
         license: 该文档仅限公司内部传阅               # 授权协议
         license-url: '#'                            # 授权协议地址
-        terms-of-service-url:                      # 服务条款地址
+        terms-of-service-url:                       # 服务条款地址
         contact:                                    # 文档联系人
           name: 张三                                # 联系人名字
           email: zhangsan@team.com                  # 联系人邮箱
@@ -52,7 +52,7 @@ spring:
 在prod环境不要启用api，只需要如下'application-prod.yml'中不要在profiles下include和active中包含'api'关键字。
 
 #### 4.配置java代码的文档注解
-①. model类中增加配置
+①. model类中增加配置注解
 model中常用的注解：@ApiModel 注解类名，@ApiModelProperty 注解方法或者参数名， 
 
 例如
@@ -70,7 +70,7 @@ public class User implements Serializable {
 }
 
 ```
-②. 控制器中增加配置
+②. 控制器中增加配置注解
 
 控制器中常用的注解： @Api 注解控制器显示的标识，有tags和description可以配置控制器显示的标识;@ApiOperation 用来注解控制器方法显示的标识； @ApiParam 用来注解控制器方法参数的名字，控制器方法在文档中需要显示的默认值
 
@@ -91,6 +91,23 @@ public class UserController {
 }
 ```
 #### 5.查看文档
+启动dev环境
+```cmd
+java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
+```
+浏览器访问，http://{服务地址}:8080/swagger-ui.html，如果你启动在本机可以直接[点击这里](http://127.0.0.1:8080/swagger-ui.html)
+
+浏览器便可以展示出swagger的html页面
+
+#### 6.生成客户端代码
+生成客户端代码，是swagger官方提供的功能。在时间充足的情况下，最好还是自己写，必定自己写的代码更具有持续维护性。但是如果时间有限的情况下，使用它开发客户端调用程序，也不失是一种有效解决办法。
+使用方法
+
+①. 下载文档的描述json
+下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，访问'http://127.0.0.1/v2/api-docs?group=01.user-api'即可下载。
+
+②
+
 
 ## 示例项目
 
