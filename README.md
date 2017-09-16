@@ -115,4 +115,10 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 ```cmd
 git clone git@gitee.com:lei0719/spring-boot-starter-swagger-example.git
 ```
-# 
+#### 2.启动服务
+进入示例代码的目录执行命令
+```cmd
+mvn spring-boot:run --spring.profiles.active=dev --server.port=80
+```
+#### 3.查看文档
+访问地址[点击这里](http://127.0.0.1/swagger-ui.html)
