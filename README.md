@@ -53,7 +53,29 @@ spring:
 
 #### 4.配置java代码的文档注解
 ①. model类中增加配置
+model中常用的注解：@ApiModel 注解类名，@ApiModelProperty 注解方法或者参数名， 
+如下
+```java
+package com.test.gitee.model;
 
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("输出用户数据的类")
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	@ApiModelProperty(required=true,value="登录的用户名")
+	private String userName;
+	@ApiModelProperty(required=true,value="登录的密码")
+	private String password;
+       
+        get/set方法省略，自己脑补
+}
+
+```
 ②. 控制器中增加配置
 
 #### 5.查看文档
