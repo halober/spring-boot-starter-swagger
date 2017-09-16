@@ -54,15 +54,9 @@ spring:
 #### 4.配置java代码的文档注解
 ①. model类中增加配置
 model中常用的注解：@ApiModel 注解类名，@ApiModelProperty 注解方法或者参数名， 
+
 例如
 ```java
-package com.test.gitee.model;
-
-import java.io.Serializable;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 @ApiModel("输出用户数据的类")
 public class User implements Serializable {
 
@@ -72,15 +66,29 @@ public class User implements Serializable {
 	@ApiModelProperty(required=true,value="登录的密码")
 	private String password;
        
-        get/set方法省略，自己脑补吧
+        get/set方法省略，自己脑补吧！
 }
 
 ```
 ②. 控制器中增加配置
 
 控制器中常用的注解： @Api 注解控制器显示的标识，有tags和description可以配置控制器显示的标识;@ApiOperation 用来注解控制器方法显示的标识； @ApiParam 用来注解控制器方法参数的名字，控制器方法在文档中需要显示的默认值
+
 例如
 ```java
+@Api(tags = "操作用户的api")
+@RestController
+@RequestMapping("/api/user")
+public class UserController {
+
+	@ApiOperation("用户登录")
+	@GetMapping("/login")
+	public ResponseEntity<User> login(
+                        @ApiParam("用户名") @RequestParam String userName,
+			@ApiParam("密码") @RequestParam String password) {
+            方法体省略，自己脑补吧！
+	} 
+}
 ```
 #### 5.查看文档
 
