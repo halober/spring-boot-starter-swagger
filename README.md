@@ -42,7 +42,7 @@ spring:
 以上是swagger的配置，其中组可以配置多个，组名以数字打头，多个组可以排序
 
 #### 3.启用swagger配置
-启用swagger配置，使用spring-boot的Profile方式配置的，对应的Profile参数是api。所以该配置要分环境，只需要在对应环境的配置文件中增加profiles包含的环境参数中即可，在一个环境中不需要启用api只需要不包含就可以了。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
+启用swagger配置，使用spring-boot的Profile方式，对应的Profile参数是api。所以分环境启用，只需要在对应环境的配置文件的profiles的include中包含api参数。例如要在dev环境要启用api，只需要如下在'application-dev.yml'中增加配置
 ```yml
 spring:
   profiles:
@@ -90,6 +90,13 @@ public class UserController {
 	} 
 }
 ```
+③.其它一些注解
+
+swagger的注解主要在包‘io.swagger.annotations’下，除了以上描述的注解外，还有@ApiImplicitParam,@ApiImplicitParams,@ApiKeyAuthDefinition,@ApiResponse,@ApiResponses,@Authorization,@AuthorizationScope,@BasicAuthDefinition,@Contact,@Example,@ExampleProperty,@Extension,@ExtensionProperty,@ExternalDocs,@Info,@License,@OAuth2Definition,@ResponseHeader,@Scope,@SecurityDefinition,@SwaggerDefinition,@Tag
+还有部分校验注解,注解所在包‘javax.validation.constraints’，像@Max，@Min,@Size这些也是可用的。
+由于这些注解，我觉得swagger中可有可无，就不写出来描述了。
+
+
 #### 5.查看文档
 启动dev环境
 ```cmd
