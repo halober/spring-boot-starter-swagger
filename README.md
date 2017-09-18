@@ -124,6 +124,18 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 ### 项目推荐
 小项目写多了，你或许需要开始考虑分布式式，考虑rpc框架了，dubbo一定是你最好的选择，这个项目则是你使用dubbo最优的入口 [spring-boot-starter-dubbo](https://gitee.com/reger/spring-boot-starter-dubbo)
 
+### 更新记录
+```
+1.0.1
+  发布时间：2017年9月17日 
+  更新内容：
+    1. 解决1.0.1发版中的bug
+1.0.2
+  发布时间：2017年9月16日
+  更新内容：
+    1. 完成基础功能
+
+```
 ## 示例项目
 #### 1.克隆[示例代码](https://gitee.com/lei0719/spring-boot-starter-swagger-example)
 ```cmd
