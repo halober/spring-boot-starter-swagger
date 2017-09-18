@@ -20,7 +20,7 @@
         <version>${spring-boot-starter-swagger.version}</version>
     </dependency>
 ```
-#### 2.在spring-boot项目的增加配置文件'application-api.yml',在其中配置swagger的信息，如下
+#### 2.在spring-boot项目增加配置文件'application-api.yml',在其中配置swagger的信息，如下
 ```yml
 spring:
   swagger-group:
@@ -105,7 +105,7 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 
 ①. 下载文档的描述json
 
-下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，可以[点击这里](http://127.0.0.1/v2/api-docs?group=01.user-api)下载。
+下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，可以[点击这里](http://127.0.0.1:8080/v2/api-docs?group=01.user-api)下载。
 
 ② 生成客户端代码
 
@@ -120,7 +120,7 @@ git clone git@gitee.com:lei0719/spring-boot-starter-swagger-example.git
 #### 2.启动服务
 进入示例代码的目录执行命令
 ```cmd
-mvn spring-boot:run -Dspring.profiles.active=dev  -Dserver.port=80
+mvn spring-boot:run -Dspring.profiles.active=dev  -Dserver.port=8080
 ```
 #### 3.查看文档
-访问地址[点击这里](http://127.0.0.1/swagger-ui.html)
+访问地址[点击这里](http://127.0.0.1:8080/swagger-ui.html)
