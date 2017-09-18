@@ -93,8 +93,10 @@ public class UserController {
 ③.其它一些注解
 
 swagger的注解主要在包‘io.swagger.annotations’下，除了以上描述的注解外，还有@ApiImplicitParam,@ApiImplicitParams,@ApiKeyAuthDefinition,@ApiResponse,@ApiResponses,@Authorization,@AuthorizationScope,@BasicAuthDefinition,@Contact,@Example,@ExampleProperty,@Extension,@ExtensionProperty,@ExternalDocs,@Info,@License,@OAuth2Definition,@ResponseHeader,@Scope,@SecurityDefinition,@SwaggerDefinition,@Tag
-还有部分校验注解,注解所在包‘javax.validation.constraints’，像@Max，@Min,@Size这些也是可用的。
-由于这些注解，我觉得swagger中可有可无，就不写出来描述了。
+
+除了swagger自己定义的注解外，还有部分校验注解,注解所在包‘javax.validation.constraints’下，像@Max，@Min,@Size这些也是可用的。
+
+由于这些注解，我觉得swagger中可有可无，就不写描述了。
 
 
 #### 5.查看文档
