@@ -108,7 +108,8 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 
 浏览器便可以展示出swagger的html页面
 
-#### 6.生成客户端代码
+
+## 生成客户端代码
 生成客户端代码，是swagger官方提供的功能。在时间充足的情况下，最好还是自己写，必定自己写的代码更具有持续维护性。但是如果时间有限的情况下，使用它开发客户端调用程序，也不失是一种有效解决办法。
 使用方法
 
