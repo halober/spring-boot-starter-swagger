@@ -121,6 +121,8 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 
 打开[swagger-editor](https://editor.swagger.io/),点击页面左上角，‘file’->importFile->选择刚才下载的json文件上传-> 点击‘Generate Client’->‘点选你要生成的客户端语言’->等一下，会自动下载生成的客户端程序包
 
+### 项目推荐
+小项目写多了，你或许需要开始考虑分布式式，考虑rpc框架了，dubbo一定是你最好的选择，这个项目则是你使用dubbo最优的入口 [spring-boot-starter-dubbo](https://gitee.com/reger/spring-boot-starter-dubbo)
 
 ## 示例项目
 #### 1.克隆[示例代码](https://gitee.com/lei0719/spring-boot-starter-swagger-example)
