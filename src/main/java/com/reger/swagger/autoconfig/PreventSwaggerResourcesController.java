@@ -9,7 +9,7 @@ public class PreventSwaggerResourcesController {
 	private static final Logger log = LoggerFactory.getLogger(PreventSwaggerResourcesController.class);
 
 	public PreventSwaggerResourcesController() {
-		log.info("禁用用了swagger文档html页面‘/swagger-ui.html’和其他资源的访问的访问");
+		log.info("禁用了swagger文档html页面‘/swagger-ui.html’和其他资源的访问的访问");
 	}
 
 	@RequestMapping("/swagger-ui.html")
