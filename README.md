@@ -129,7 +129,7 @@ java -jar swagger-example.jar --spring.profiles.active=dev --server.port=8080
 1.0.1
   发布时间：2017年9月17日 
   更新内容：
-    1. 解决1.0.1发版中的bug
+    1. 解决1.0.0发版中的bug
 1.0.0
   发布时间：2017年9月16日
   更新内容：
