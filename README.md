@@ -10,22 +10,11 @@
 
 3.支持分环境配置，你可以很容易让你的项目api文档在开发环境，测试环境，预发布环境查看，而在生产环境不可查看
 
-
 ## 快速入门
-[快速入门点击这里](http://blog.csdn.net/hulei19900322/article/details/78107516)
-
+快速入门[点击这里](http://blog.csdn.net/hulei19900322/article/details/78107516)
 
 ## 生成客户端代码
-生成客户端代码，是swagger官方提供的功能。在时间充足的情况下，最好还是自己写，必定自己写的代码更具有持续维护性。但是如果时间有限的情况下，使用它开发客户端调用程序，也不失是一种有效解决办法。
-使用方法
-
-①. 下载文档的描述json
-
-下载地址，http://{服务启动主机地址}:{服务启动端口}/v2/api-docs?group={需要生成的api所属组name}，如果需要下上边‘01.user-api’组的的json文档地址,并且服务启动在本地8080端口上，可以[点击这里](http://127.0.0.1:8080/v2/api-docs?group=01.user-api)下载。
-
-② 生成客户端代码
-
-打开[swagger-editor](https://editor.swagger.io/),点击页面左上角，‘file’->importFile->选择刚才下载的json文件上传-> 点击‘Generate Client’->‘点选你要生成的客户端语言’->等一下，会自动下载生成的客户端程序包
+生成客户端代码[点击这里](http://blog.csdn.net/hulei19900322/article/details/78107874)
 
 ### 项目推荐
 小项目写多了，你或许需要开始考虑分布式式，考虑rpc框架了，dubbo一定是你最好的选择，这个项目则是你使用dubbo最优的入口 [spring-boot-starter-dubbo](https://gitee.com/reger/spring-boot-starter-dubbo)
