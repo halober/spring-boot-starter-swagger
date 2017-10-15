@@ -21,6 +21,12 @@
 
 ### 更新记录
 ```
+1.0.2
+  发布时间：2017年10月15日
+  更新内容：
+    1.调整配置 spring.swagger-group到spring.swagger.group
+    2.增加显示启用swagger配置的参数spring.swagger.enabled
+  注： 本次升级完全兼容1.0.1
 1.0.1
   发布时间：2017年9月17日 
   更新内容：
