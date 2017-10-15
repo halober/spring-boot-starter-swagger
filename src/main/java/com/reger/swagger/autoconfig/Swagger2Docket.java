@@ -2,8 +2,9 @@ package com.reger.swagger.autoconfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -19,13 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.reger.swagger.properties.Swagger2GroupProperties;
 import com.reger.swagger.properties.Swagger2Properties;
+import com.reger.swagger.properties.SwaggerProperties;
 
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+@SuppressWarnings("deprecation")
 public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAware {
+	
+	private static final Logger log = LoggerFactory.getLogger(Swagger2Docket.class);
 
 	private ConfigurableEnvironment environment;
 
@@ -34,6 +39,23 @@ public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAwar
 		this.environment = (ConfigurableEnvironment) environment;
 	}
 
+	private SwaggerProperties getSwaggerProperties() {
+		PropertiesConfigurationFactory<SwaggerProperties> factory = new PropertiesConfigurationFactory<>(SwaggerProperties.class);
+		factory.setPropertySources(environment.getPropertySources());
+		factory.setConversionService(environment.getConversionService());
+		factory.setIgnoreInvalidFields(false);
+		factory.setIgnoreUnknownFields(true);
+		factory.setIgnoreNestedProperties(false);
+		factory.setTargetName(SwaggerProperties.prefix);
+		try {
+			factory.bindPropertiesToTarget();
+			return factory.getObject();
+		} catch (Exception e) {
+			log.info("");
+			return null;
+		}
+	}
+	
 	private Swagger2Properties getSwagger2Properties() {
 		PropertiesConfigurationFactory<Swagger2Properties> factory = new PropertiesConfigurationFactory<>(
 				Swagger2Properties.class);
@@ -109,14 +131,21 @@ public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAwar
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		Swagger2Properties Swagger2Properties = getSwagger2Properties();
-		Map<String, Swagger2GroupProperties> swaggers = Swagger2Properties.getSwaggerGroup();
+		Swagger2Properties swagger2Properties = getSwagger2Properties();
+		SwaggerProperties swaggerProperties = getSwaggerProperties();
 		List<String> pathRegexs = new ArrayList<>();
-		if (swaggers != null && !swaggers.isEmpty())
-			swaggers.forEach((name, swaggerConfig) -> {
+		if (swagger2Properties.getGroup() != null && !swagger2Properties.getGroup().isEmpty()){
+			swagger2Properties.getGroup().forEach((name, swaggerConfig) -> {
 				beanFactory.registerSingleton(name, this.getSwagger2Docket(swaggerConfig));
 				pathRegexs.add(swaggerConfig.getPathRegex());
 			});
+		}
+		if (swaggerProperties.getSwaggerGroup() != null && !swaggerProperties.getSwaggerGroup().isEmpty()){
+			swaggerProperties.getSwaggerGroup().forEach((name, swaggerConfig) -> {
+				beanFactory.registerSingleton(name, this.getSwagger2Docket(swaggerConfig));
+				pathRegexs.add(swaggerConfig.getPathRegex());
+			});
+		}
 		beanFactory.registerSingleton("other-api", this.getOtherSwagger2Docket(pathRegexs));
 	}
 }
