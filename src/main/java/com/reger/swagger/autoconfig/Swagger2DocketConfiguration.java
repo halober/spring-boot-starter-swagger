@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.common.base.Predicate;
 import com.reger.swagger.properties.Swagger2GroupProperties;
@@ -32,9 +34,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @SuppressWarnings("deprecation")
-public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAware {
+public class Swagger2DocketConfiguration implements BeanFactoryPostProcessor, EnvironmentAware {
 	
-	private static final Logger log = LoggerFactory.getLogger(Swagger2Docket.class);
+	private static final Logger log = LoggerFactory.getLogger(Swagger2DocketConfiguration.class);
 
 	private ConfigurableEnvironment environment;
 
@@ -88,18 +90,16 @@ public class Swagger2Docket implements BeanFactoryPostProcessor, EnvironmentAwar
 				.pathMapping(swaggerConfig.getPathMapping())// 最终调用接口后会和paths拼接在一起
 				.select()
  				.apis(new Predicate<RequestHandler>() { @Override public boolean apply(RequestHandler input) {
-						return input.isAnnotatedWith(GetMapping.class)
-						|| 	input.isAnnotatedWith(PostMapping.class)
-						|| 	input.isAnnotatedWith(DeleteMapping.class)
-						|| 	input.isAnnotatedWith(PutMapping.class)
-						|| 	input.isAnnotatedWith(RequestMapping.class);
+
+ 					System.err.println(input.getHandlerMethod().getBeanType().getName());
+ 					System.err.println(input.getPatternsCondition());
+						return false ;
 				}}) 
 				.paths(new Predicate<String>() { @Override public boolean apply(String input) {
 						return input.matches(swaggerConfig.getPathRegex());
 				}})
 				.build();
 	}
-
 	private Docket getOtherSwagger2Docket(final List<String> pathRegexs) {
 		Swagger2GroupProperties otherSwagger = otherSwagger();
 		return new Docket(DocumentationType.SWAGGER_2)

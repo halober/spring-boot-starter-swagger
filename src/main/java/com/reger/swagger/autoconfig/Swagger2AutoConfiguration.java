@@ -20,7 +20,7 @@ public class Swagger2AutoConfiguration {
 
 	@EnableSwagger2
 	@Conditional(ConditionApi.class)
-	public static class  swagger2Docket extends Swagger2Docket {
+	public static class  swagger2Docket extends Swagger2DocketConfiguration {
 		{
 			log.debug("启用了swagger文档");
 		}
